@@ -949,6 +949,10 @@ Fetch::checkSignalsAndUpdate(ThreadID tid)
         }
 
         return true;
+    } else if (fromCommit->commitInfo[tid].trapPending) {
+        fetchStatus[tid] = TrapPending;
+
+        return true;
     } else if (fromCommit->commitInfo[tid].doneSeqNum) {
         // Update the branch predictor if it wasn't a squashed instruction
         // that was broadcasted.
